@@ -6,168 +6,139 @@
     <title>Web Scraper Control</title>
     <style>
         :root {
-            --primary: #3498db;
-            --primary-dark: #2980b9;
-            --secondary: #2ecc71;
-            --light: #ecf0f1;
-            --dark: #34495e;
-            --danger: #e74c3c;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --primary: #bb86fc; /* Roxo claro para destaque */
+            --primary-dark: #3700b3; /* Roxo escuro para hover */
+            --secondary: #03dac6; /* Ciano vibrante */
+            --background: #121212; /* Fundo escuro */
+            --surface: #1e1e1e; /* Superfície mais clara */
+            --text: #e0e0e0; /* Texto claro */
+            --text-muted: #9e9e9e; /* Texto secundário */
+            --danger: #ff5252; /* Vermelho para erros */
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            --font-family: 'Roboto', sans-serif;
         }
-        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f5f7fa;
+            font-family: var(--font-family);
+            background-color: var(--background);
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            color: var(--text);
         }
-        
         .container {
-            background-color: white;
-            border-radius: 10px;
+            background-color: var(--surface);
+            border-radius: 16px;
             box-shadow: var(--shadow);
             width: 100%;
             max-width: 600px;
             padding: 2rem;
         }
-        
         h1 {
-            color: var(--dark);
+            color: var(--text);
             text-align: center;
             margin-bottom: 1.5rem;
-            font-weight: 600;
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
         }
-        
         .logo {
             text-align: center;
             margin-bottom: 2rem;
         }
-        
-        .logo img {
-            max-width: 180px;
+        .logo svg {
+            width: 150px;
+            height: 150px;
         }
-        
         .form-group {
             margin-bottom: 1.5rem;
         }
-        
         label {
             display: block;
             margin-bottom: 0.5rem;
-            color: var(--dark);
+            color: var(--text);
             font-weight: 500;
         }
-        
         input[type="text"], select {
             width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 0.8rem;
+            border: 1px solid #4d4d4d;
+            border-radius: 8px;
+            background-color: var(--background);
+            color: var(--text);
             font-size: 1rem;
-            transition: border-color 0.3s;
+            transition: border-color 0.3s ease;
         }
-        
         input[type="text"]:focus, select:focus {
             border-color: var(--primary);
             outline: none;
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            box-shadow: 0 0 0 4px rgba(187, 134, 252, 0.2);
         }
-        
         button {
             background-color: var(--primary);
             color: white;
             border: none;
-            border-radius: 5px;
-            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            padding: 0.8rem 1.5rem;
             font-size: 1rem;
             cursor: pointer;
             width: 100%;
-            transition: background-color 0.3s;
-            font-weight: 500;
+            transition: background-color 0.3s ease;
+            font-weight: 600;
         }
-        
         button:hover {
             background-color: var(--primary-dark);
         }
-        
         .btn-secondary {
             background-color: var(--secondary);
         }
-        
         .btn-secondary:hover {
-            background-color: #27ae60;
+            background-color: #018786;
         }
-        
         .status {
             margin-top: 1.5rem;
             padding: 1rem;
-            border-radius: 5px;
+            border-radius: 8px;
             display: none;
         }
-        
         .status.success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+            background-color: #388e3c;
+            color: white;
+            border: 1px solid #2e7d32;
             display: block;
         }
-        
         .status.error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+            background-color: #d32f2f;
+            color: white;
+            border: 1px solid #c62828;
             display: block;
         }
-        
         .footer {
             text-align: center;
             margin-top: 2rem;
-            color: #7f8c8d;
+            color: var(--text-muted);
             font-size: 0.9rem;
         }
-        
-        .locations-container {
-            margin-top: 1rem;
-        }
-        
-        .saved-location {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background-color: #f1f3f6;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            margin-bottom: 0.5rem;
-        }
-        
-        .saved-location button {
-            background-color: var(--danger);
-            width: auto;
-            padding: 0.25rem 0.5rem;
-            font-size: 0.8rem;
-        }
-        
         .history {
             margin-top: 2rem;
             max-height: 200px;
             overflow-y: auto;
+            border: 1px solid #4d4d4d;
+            border-radius: 8px;
+            padding: 1rem;
+            background-color: var(--background);
         }
-        
         .history-item {
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #4d4d4d;
             padding: 0.75rem 0;
         }
-        
         .history-item:last-child {
             border-bottom: none;
         }
-        
         .history-item .time {
-            color: #7f8c8d;
+            color: var(--text-muted);
             font-size: 0.8rem;
         }
     </style>
@@ -175,24 +146,20 @@
 <body>
     <div class="container">
         <h1>Web Scraper Control</h1>
-        
         <div class="logo">
-            <svg width="120" height="120" viewBox="0 0 24 24">
-                <path fill="#3498db" d="M19.5 5.5v13h-15v-13h15zm1.5-1.5h-18v16h18v-16zm-4.667 5.667v-1.5h-7.5v1.5h7.5zm0 3v-1.5h-7.5v1.5h7.5zm-7.5 3h4.5v-1.5h-4.5v1.5z"/>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--primary)">
+                <path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-6 14H7v-2h6v2zm0-4H7v-2h6v2zm0-4H7V7h6v2z"/>
             </svg>
         </div>
-        
         <form id="scraperForm">
             <div class="form-group">
                 <label for="query">Termo de Pesquisa:</label>
                 <input type="text" id="query" name="query" placeholder="Ex: restaurantes, hotéis, academias..." required>
             </div>
-            
             <div class="form-group">
                 <label for="location">Localização:</label>
                 <input type="text" id="location" name="location" placeholder="Ex: Barueri, São Paulo" required>
             </div>
-            
             <div class="form-group">
                 <label for="engineType">Tipo de Busca:</label>
                 <select id="engineType" name="engineType">
@@ -201,44 +168,34 @@
                     <option value="bing_local">Bing Local</option>
                 </select>
             </div>
-            
             <button type="submit" id="submitBtn">Iniciar Scraping</button>
         </form>
-        
         <div id="status" class="status"></div>
-        
         <div class="history">
             <h3>Histórico de Execuções</h3>
             <div id="historyContainer"></div>
         </div>
-        
         <div class="footer">
             <p>&copy; 2025 Web Scraper | Versão 1.1</p>
         </div>
     </div>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('scraperForm');
             const status = document.getElementById('status');
             const historyContainer = document.getElementById('historyContainer');
             const submitBtn = document.getElementById('submitBtn');
-            
             // Configuração do webhook - Substitua pela URL do seu webhook
-            const webhookUrl = 'https://webhook.botalfa.com.br/webhook/webscraper';
-            
+            const webhookUrl = 'https://webhook.botalfa.com.br/webhook/webscraper ';
             // Carregar histórico do armazenamento local
             loadHistory();
-            
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
                 submitBtn.disabled = true;
                 submitBtn.innerText = 'Processando...';
-                
                 const query = document.getElementById('query').value;
                 const location = document.getElementById('location').value;
                 const engineType = document.getElementById('engineType').value;
-                
                 // Dados para enviar ao webhook
                 const payload = {
                     query: query,
@@ -246,7 +203,6 @@
                     engineType: engineType,
                     timestamp: new Date().toISOString()
                 };
-                
                 // Enviar para o webhook
                 fetch(webhookUrl, {
                     method: 'POST',
@@ -264,26 +220,21 @@
                 .then(data => {
                     submitBtn.disabled = false;
                     submitBtn.innerText = 'Iniciar Scraping';
-                    
                     status.className = 'status success';
                     status.innerHTML = `<strong>Sucesso!</strong> Scraping iniciado para "${query}" em "${location}".`;
-                    
                     // Adicionar ao histórico
                     addToHistory(query, location, engineType);
                 })
                 .catch(error => {
                     submitBtn.disabled = false;
                     submitBtn.innerText = 'Iniciar Scraping';
-                    
                     status.className = 'status error';
                     status.innerHTML = `<strong>Erro!</strong> ${error.message}`;
                 });
             });
-            
             function addToHistory(query, location, engineType) {
                 // Obter histórico atual
                 let history = JSON.parse(localStorage.getItem('scraperHistory') || '[]');
-                
                 // Adicionar novo item
                 history.unshift({
                     query: query,
@@ -291,43 +242,34 @@
                     engineType: engineType,
                     timestamp: new Date().toISOString()
                 });
-                
                 // Limitar a 10 itens
                 if (history.length > 10) {
                     history = history.slice(0, 10);
                 }
-                
                 // Salvar no armazenamento local
                 localStorage.setItem('scraperHistory', JSON.stringify(history));
-                
                 // Atualizar a interface
                 loadHistory();
             }
-            
             function loadHistory() {
                 // Limpar container
                 historyContainer.innerHTML = '';
-                
                 // Obter histórico
                 const history = JSON.parse(localStorage.getItem('scraperHistory') || '[]');
-                
                 if (history.length === 0) {
                     historyContainer.innerHTML = '<p>Nenhum registro de scraping.</p>';
                     return;
                 }
-                
                 // Adicionar cada item à interface
                 history.forEach((item, index) => {
                     const date = new Date(item.timestamp);
                     const formattedDate = date.toLocaleDateString('pt-BR') + ' ' + date.toLocaleTimeString('pt-BR');
-                    
                     const historyItem = document.createElement('div');
                     historyItem.className = 'history-item';
                     historyItem.innerHTML = `
                         <div><strong>${item.query}</strong> em ${item.location}</div>
                         <div class="time">${formattedDate} - ${item.engineType}</div>
                     `;
-                    
                     historyContainer.appendChild(historyItem);
                 });
             }
